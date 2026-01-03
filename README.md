@@ -1,6 +1,6 @@
 # Bootloader
 
-##### Version: 0.1.0
+##### Version: 0.1.2
 
 This is the official bootloader for Sine, allowing it to load into the DOM.
 
