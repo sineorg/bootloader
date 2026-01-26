@@ -5,7 +5,11 @@ ChromeUtils.defineLazyGetter(SharedGlobal,"widgetCallbacks",() => {return new Ma
 const lazy = {
   startupPromises: new Set()
 };
-ChromeUtils.defineESModuleGetters(lazy,{
+let customizableUiURL = "resource:///modules/ZenCustomizableUI.sys.mjs";
+if (Services.appinfo.name === "Zen") {
+  customizableUiURI = "resource:///modules/ZenCustomizableUI.sys.mjs";
+}
+ChromeUtils.defineESModuleGetters(lazy, {
   CustomizableUI: "resource:///modules/CustomizableUI.sys.mjs"
 });
 
