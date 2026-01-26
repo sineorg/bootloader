@@ -1,0 +1,46 @@
+name: Deploy latest assets
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Generate packages
+        run: |
+          pip install -r scripts/requirements.txt
+          python scripts/package.py
+          mv engine.zip artifacts/engine.zip
+          mv locales.zip artifacts/locales.zip
+
+      - name: Get latest release
+        id: latest_release
+        run: |
+          latest=$(gh release list --limit 1 --json tagName,isPrerelease,publishedAt --jq '.[0].tagName')
+          echo "Latest release tag: $latest"
+          echo "release_tag=$latest" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts to latest release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.latest_release.outputs.release_tag }}
+          files: artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
