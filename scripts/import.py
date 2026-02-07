@@ -5,15 +5,15 @@ from dotenv import load_dotenv
 # Load variables from .env
 load_dotenv()
 
-program_path = os.getenv('PROGRAM')
-profile_path = os.getenv('PROFILE')
+program_path = os.getenv("PROGRAM")
+profile_path = os.getenv("PROFILE")
 
 if not program_path or not profile_path:
     raise ValueError("Missing PROGRAM or PROFILE in .env")
 
 # Source folders
-utils_src = os.path.join('.', 'utils')
-program_src = os.path.join('.', 'program')
+utils_src = os.path.join(".", "profile", "utils")
+program_src = os.path.join(".", "program")
 
 if not os.path.isdir(utils_src):
     raise FileNotFoundError(f"Missing ./utils at {utils_src}")
@@ -21,10 +21,10 @@ if not os.path.isdir(program_src):
     raise FileNotFoundError(f"Missing ./program at {program_src}")
 
 # Destination paths
-chrome_utils_dest = os.path.join(profile_path, 'chrome', 'utils')
+chrome_utils_dest = os.path.join(profile_path, "chrome", "utils")
 
 # Ensure chrome dir exists
-os.makedirs(os.path.join(profile_path, 'chrome'), exist_ok=True)
+os.makedirs(os.path.join(profile_path, "chrome"), exist_ok=True)
 
 # Overwrite utils entirely
 if os.path.exists(chrome_utils_dest):
