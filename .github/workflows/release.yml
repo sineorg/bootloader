@@ -25,6 +25,7 @@ jobs:
         run: |
           pip install -r scripts/requirements.txt
           python scripts/package.py
+          mkdir artifacts
           mv program.zip artifacts/program.zip
           mv profile.zip artifacts/profile.zip
 
