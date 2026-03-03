@@ -25,8 +25,8 @@ jobs:
         run: |
           pip install -r scripts/requirements.txt
           python scripts/package.py
-          mv engine.zip artifacts/engine.zip
-          mv locales.zip artifacts/locales.zip
+          mv program.zip artifacts/program.zip
+          mv profile.zip artifacts/profile.zip
 
       - name: Get latest release
         id: latest_release
