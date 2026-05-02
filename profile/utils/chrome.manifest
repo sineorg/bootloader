@@ -1,4 +1,4 @@
 content userchromejs ./
 content userscripts ../JS/
 content sine ../sine-mods/
-content locales ../locales/
+content locales ../JS/locales/
